@@ -6,16 +6,39 @@ namespace WinFormsApp1
         PictureBox[] stars;
         int backgroundspeed;
         Random rnd;
+        int playerSpeed;
         public SpaceShooter()
         {
             InitializeComponent();
         }
+        PictureBox[] munitions;
+        int MunitionSpeed;
 
         private void SpaceShooter_Load(object sender, EventArgs e)
         {
             backgroundspeed = 4;
             stars = new PictureBox[10];
             rnd = new Random();
+            playerSpeed = 4;
+
+            MunitionSpeed = 20;
+            munitions = new PictureBox[3];
+
+            // Carrega imagens
+            Image munition = Image.FromFile(@"D:\downloads do outro disco\downloads\downloads assets projeto game\drive-download-20240909T225527Z-001\asserts\munition.png");
+
+            for (int i = 0; i < munitions.Length; i++)
+            {
+                munitions[i] = new PictureBox();
+                munitions[i].Size = new Size(8, 8);
+                munitions[i].Image = munition;
+                munitions[i].SizeMode = PictureBoxSizeMode.Zoom;
+                munitions[i].BorderStyle = BorderStyle.None;
+                this.Controls.Add(munitions[i]);
+
+            }
+
+
             for (int i = 0; i < stars.Length; i++)
             {
                 stars[i] = new PictureBox();
@@ -48,6 +71,7 @@ namespace WinFormsApp1
             RightMoveTimer = new System.Windows.Forms.Timer(components);
             DownMoveTimer = new System.Windows.Forms.Timer(components);
             UpMoveTimer = new System.Windows.Forms.Timer(components);
+            MoveMunitionTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)Player).BeginInit();
             SuspendLayout();
             // 
@@ -86,6 +110,11 @@ namespace WinFormsApp1
             // 
             UpMoveTimer.Interval = 5;
             UpMoveTimer.Tick += UpMoveTimer_Tick;
+            // 
+            // MoveMunitionTimer
+            // 
+            MoveMunitionTimer.Interval = 20;
+            MoveMunitionTimer.Tick += MoveMunitionTimer_Tick;
             // 
             // SpaceShooter
             // 
@@ -128,7 +157,7 @@ namespace WinFormsApp1
             }
         }
 
-        
+
 
         private System.Windows.Forms.Timer RightMoveTimer;
         private System.Windows.Forms.Timer DownMoveTimer;
@@ -168,7 +197,7 @@ namespace WinFormsApp1
 
         private void SpaceShooter_KeyDown(object sender, KeyEventArgs e)
         {
-            if(e.KeyCode == Keys.Right)
+            if (e.KeyCode == Keys.Right)
             {
                 RightMoveTimer.Start();
             }
@@ -192,6 +221,29 @@ namespace WinFormsApp1
             LeftMoveTimer.Stop();
             UpMoveTimer.Stop();
             DownMoveTimer.Stop();
+        }
+
+        private System.Windows.Forms.Timer MoveMunitionTimer;
+
+        private void MoveMunitionTimer_Tick(object sender, EventArgs e)
+        {
+            for (int i = 0; i < munitions.Length; i++)
+            {
+                if (munitions[i].Top > 0) 
+                {
+                    munitions[i].Visible = true;
+                    munitions[i].Top -= MunitionSpeed;
+                }
+                else
+                {
+                    munitions[i].Visible = false;
+                    munitions[i].Location = new Point(Player.Location.X + 20, Player.Location.Y - i * 30) ;
+                }
+
+            }
+
+
+
         }
     }
 }

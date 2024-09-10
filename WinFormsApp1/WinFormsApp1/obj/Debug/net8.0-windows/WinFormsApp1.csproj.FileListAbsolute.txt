@@ -15,3 +15,4 @@ C:\Users\Utilizador\Documents\Projetos\SimpleMazeGame\WinFormsApp1\WinFormsApp1\
 C:\Users\Utilizador\Documents\Projetos\SimpleMazeGame\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.pdb
 C:\Users\Utilizador\Documents\Projetos\SimpleMazeGame\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.genruntimeconfig.cache
 C:\Users\Utilizador\Documents\Projetos\SimpleMazeGame\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\ref\WinFormsApp1.dll
+C:\Users\Utilizador\Documents\Projetos\SimpleMazeGame\WinFormsApp1\WinFormsApp1\obj\Debug\net8.0-windows\WinFormsApp1.sourcelink.json
