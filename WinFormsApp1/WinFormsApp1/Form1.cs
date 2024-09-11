@@ -7,18 +7,19 @@ namespace WinFormsApp1
         int backgroundspeed;
         Random rnd;
         int playerSpeed;
+        PictureBox[] munitions;
+        int MunitionSpeed;
+
         public SpaceShooter()
         {
             InitializeComponent();
         }
-        PictureBox[] munitions;
-        int MunitionSpeed;
+        
 
         private void SpaceShooter_Load(object sender, EventArgs e)
         {
             backgroundspeed = 4;
-            stars = new PictureBox[10];
-            rnd = new Random();
+   
             playerSpeed = 4;
 
             MunitionSpeed = 20;
@@ -37,7 +38,9 @@ namespace WinFormsApp1
                 this.Controls.Add(munitions[i]);
 
             }
-
+            
+            stars = new PictureBox[10];
+            rnd = new Random();
 
             for (int i = 0; i < stars.Length; i++)
             {
@@ -113,6 +116,7 @@ namespace WinFormsApp1
             // 
             // MoveMunitionTimer
             // 
+            MoveMunitionTimer.Enabled = true;
             MoveMunitionTimer.Interval = 20;
             MoveMunitionTimer.Tick += MoveMunitionTimer_Tick;
             // 
@@ -241,8 +245,6 @@ namespace WinFormsApp1
                 }
 
             }
-
-
 
         }
     }
