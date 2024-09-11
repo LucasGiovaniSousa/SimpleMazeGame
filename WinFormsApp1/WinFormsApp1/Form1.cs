@@ -1,7 +1,16 @@
+using System;
+using System.Drawing;
+using System.Windows.Forms;
+using WMPLib;
+
+
+
 namespace WinFormsApp1
 {
     public partial class SpaceShooter : Form
     {
+        WindowsMediaPlayer gameMedia;
+        WindowsMediaPlayer shootMedia;
 
         PictureBox[] stars;
         int backgroundspeed;
@@ -19,11 +28,11 @@ namespace WinFormsApp1
         private void SpaceShooter_Load(object sender, EventArgs e)
         {
             backgroundspeed = 4;
-   
             playerSpeed = 4;
-
             MunitionSpeed = 20;
             munitions = new PictureBox[3];
+            stars = new PictureBox[15];
+            rnd = new Random();
 
             // Carrega imagens
             Image munition = Image.FromFile(@"D:\downloads do outro disco\downloads\downloads assets projeto game\drive-download-20240909T225527Z-001\asserts\munition.png");
@@ -38,10 +47,7 @@ namespace WinFormsApp1
                 this.Controls.Add(munitions[i]);
 
             }
-            
-            stars = new PictureBox[10];
-            rnd = new Random();
-
+  
             for (int i = 0; i < stars.Length; i++)
             {
                 stars[i] = new PictureBox();
@@ -62,7 +68,33 @@ namespace WinFormsApp1
                 this.Controls.Add(stars[i]);
 
             }
+            
+
+            //Create WMP
+            gameMedia = new WindowsMediaPlayer();
+            shootMedia = new WindowsMediaPlayer();
+
+            //Load Songs 
+            gameMedia.URL = "C:\Users\Utilizador\Music\GameSong.mp3";
+            shootMedia.URL = "songs\\shoot.mp3";
+
+            //Setup Songs Settigns
+            gameMedia.settings.setMode("loop", true);
+            gameMedia.settings.volume = 5;
+            shootMedia.settings.volume = 1;
+
+            gameMedia.controls.play();
+
         }
+
+
+        private PictureBox Player;
+        private System.Windows.Forms.Timer MoveBgTimer;
+        private System.ComponentModel.IContainer components;
+        private System.Windows.Forms.Timer LeftMoveTimer;
+        private System.Windows.Forms.Timer RightMoveTimer;
+        private System.Windows.Forms.Timer DownMoveTimer;
+        private System.Windows.Forms.Timer UpMoveTimer;
 
         private void InitializeComponent()
         {
@@ -134,13 +166,6 @@ namespace WinFormsApp1
             ((System.ComponentModel.ISupportInitialize)Player).EndInit();
             ResumeLayout(false);
         }
-
-        private PictureBox Player;
-        private System.Windows.Forms.Timer MoveBgTimer;
-        private System.ComponentModel.IContainer components;
-        private System.Windows.Forms.Timer LeftMoveTimer;
-
-
         private void timer1_Tick(object sender, EventArgs e)
         {
             for (int i = 0; i < stars.Length / 2; i++)
@@ -160,13 +185,6 @@ namespace WinFormsApp1
                 }
             }
         }
-
-
-
-        private System.Windows.Forms.Timer RightMoveTimer;
-        private System.Windows.Forms.Timer DownMoveTimer;
-        private System.Windows.Forms.Timer UpMoveTimer;
-
         private void UpMoveTimer_Tick(object sender, EventArgs e)
         {
             if (Player.Top > 10)
